@@ -1,0 +1,4 @@
+type Payload struct {
+    Channel string `json:"channel"`
+    Blocks []Block `json:"blocks"`
+}

@@ -1,0 +1,10 @@
+type Block struct {
+    Type    String          `json:"type"`
+    Text    *Component      `json:"text"`
+    Fields  *[]Component    `json:"fields"`
+}
+
+type Component struct {
+    Type    String          `json:"type"`
+    Text    *Component      `json:"text"`
+}
