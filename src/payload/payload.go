@@ -6,7 +6,7 @@ type Payload struct {
 }
 
 func NewPayload() Payload {
-    block := Block1();
+    block := Block1()
 
     payload := Payload{
         Channel:    "CNBSZ3ABX",
