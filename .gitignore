@@ -1,3 +1,6 @@
 # Compiled source #
 ###################
 *.exe
+
+# Enviroment file
+src/.env
