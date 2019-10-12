@@ -1,17 +1,20 @@
 package payload
 
+import "os"
+
 type Payload struct {
-    Channel string `json:"channel"`
-    Blocks []Block `json:"blocks"`
+	Channel string  `json:"channel"`
+	Blocks  []Block `json:"blocks"`
 }
 
 func NewPayload() Payload {
-    block := Block1()
+	block := Block1()
 
-    payload := Payload{
-        Channel:    "CNBSZ3ABX",
-        Blocks:     []Block{block},
-    }
+	channel, _ := os.LookupEnv("CHANNEL_ID")
+	payload := Payload{
+		Channel: channel,
+		Blocks:  []Block{block},
+	}
 
-    return payload
+	return payload
 }

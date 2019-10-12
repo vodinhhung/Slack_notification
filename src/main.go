@@ -1,6 +1,8 @@
 package main
 
 import (
+	"../src/payload"
+	"encoding/json"
 	"fmt"
 	"github.com/joho/godotenv"
 	"io/ioutil"
@@ -21,13 +23,14 @@ func main() {
 
 	url := "https://slack.com/api/chat.postMessage"
 	token, _ := os.LookupEnv("TOKEN")
-	fmt.Println(token)
 
-	channel, _ := os.LookupEnv("CHANNEL_ID")
-	fmt.Println(channel)
+	messange := payload.NewPayload()
+	payloadByte, _ := json.Marshal(messange)
+	payloadString := string(payloadByte)
+	fmt.Println(payloadString)
 
-	content := "{\n\t\"channel\": \"CNBSZ3ABX\",\n\t\"blocks\": [\n\t{\n\t\t\"type\": \"section\",\n\t\t\"text\": {\n\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\"text\": \"You have a new request:\\n*<fakeLink.toEmployeeProfile.com|Fred Enriquez - New device request>*\"\n\t\t}\n\t},\n\t{\n\t\t\"type\": \"section\",\n\t\t\"fields\": [\n\t\t\t{\n\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\"text\": \"*Type:*\\nComputer (laptop)\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\"text\": \"*When:*\\nSubmitted Aut 10\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\"text\": \"*Last Update:*\\nMar 10, 2015 (3 years, 5 months)\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\"text\": \"*Reason:*\\nAll vowel keys aren't working.\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\"text\": \"*Specs:*\\n\\\"Cheetah Pro 15\\\" - Fast, really fast\\\"\"\n\t\t\t}\n\t\t]\n\t}\n]\n}"
-	payload := strings.NewReader(content)
+	//content := "{\n\t\"channel\": \"CNBSZ3ABX\",\n\t\"blocks\": [\n\t{\n\t\t\"type\": \"section\",\n\t\t\"text\": {\n\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\"text\": \"You have a new request:\\n*<fakeLink.toEmployeeProfile.com|Fred Enriquez - New device request>*\"\n\t\t}\n\t},\n\t{\n\t\t\"type\": \"section\",\n\t\t\"fields\": [\n\t\t\t{\n\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\"text\": \"*Type:*\\nComputer (laptop)\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\"text\": \"*When:*\\nSubmitted Aut 10\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\"text\": \"*Last Update:*\\nMar 10, 2015 (3 years, 5 months)\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\"text\": \"*Reason:*\\nAll vowel keys aren't working.\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\"text\": \"*Specs:*\\n\\\"Cheetah Pro 15\\\" - Fast, really fast\\\"\"\n\t\t\t}\n\t\t]\n\t}\n]\n}"
+	payload := strings.NewReader(payloadString)
 
 	req, _ := http.NewRequest("POST", url, payload)
 
@@ -46,10 +49,4 @@ func main() {
 
 	fmt.Println(res)
 	fmt.Println(string(body))
-
-	//payload := payload.NewPayload()
-	//
-	//payloadString, _ := json.Marshal(payload)
-	//fmt.Println(string(payloadString))
-
 }
